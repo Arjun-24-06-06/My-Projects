@@ -1,0 +1,9 @@
+{
+  "name": "SplitPro Expense Splitter",
+  "description": "A mobile-first expense splitter for friends and roommates to track shared costs and settle balances easily.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "Firebase Firestore",
+    "Firebase Auth"
+  ]
+}

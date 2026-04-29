@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["displayName", "email"]
+    },
+    "Group": {
+      "title": "Group",
+      "description": "A group of friends sharing expenses",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "currency": { "type": "string", "description": "e.g., INR, USD" },
+        "ownerId": { "type": "string" },
+        "memberIds": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "currency", "ownerId"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "An expense entry in a group",
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "payerId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "splitType": { "type": "string", "enum": ["equal", "percentage", "shares"] },
+        "splits": { "type": "object", "additionalProperties": { "type": "number" } },
+        "groupId": { "type": "string" }
+      },
+      "required": ["description", "amount", "payerId", "date", "splitType"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "groups/{groupId}": {
+      "schema": "Group",
+      "description": "Groups for expense splitting"
+    },
+    "groups/{groupId}/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Expenses within a group"
+    }
+  }
+}
